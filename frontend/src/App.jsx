@@ -14,6 +14,8 @@ import ExpenceList from './pages/expences/ExpenceList'
 import CreateExp from './pages/expences/CreateExp'
 import EditExp from './pages/expences/EditExp'
 import { matchPath } from 'react-router-dom';
+import UsersList from './pages/users/UsersList'
+import CreateUser from './pages/users/CreateUser'
 
 export default function App() {
   const location = useLocation()
@@ -30,6 +32,8 @@ export default function App() {
     '/expenses',
     '/createE',
     '/editE/:id',
+    '/users',
+    '/createUser',
     '/logout'
   ];
 
@@ -60,6 +64,8 @@ export default function App() {
               <Route path="/expenses" element={<ExpenceList />} />
               <Route path="/createE" element={<CreateExp />} />
               <Route path='/editE/:id' element={<EditExp />} />
+              <Route path="/users" element={<UsersList />} />
+              <Route path="/createUser" element={<CreateUser />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

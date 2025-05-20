@@ -100,4 +100,28 @@ const logout = async (req, res) => {
 }
 
 
-export const authController = { register, getuser, login, logout };
+// delete user
+const deleteuser = async (req, res) => {
+    try {
+
+        const { id } = req.params;
+        const result = await userModel.findByIdAndDelete(id);
+
+        if (!result) {
+            return res.status(404).send({
+                message: "User not found"
+            });
+        } else {
+            return res.status(200).send({
+                message: "User deleted successfully..."
+            });
+        }
+
+
+    } catch (error) {
+        console.log(error);
+        response.status(500).send({ message: error.message })
+    }
+};
+
+export const authController = { register, getuser, login, logout, deleteuser };

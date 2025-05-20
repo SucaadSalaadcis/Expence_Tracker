@@ -2,12 +2,14 @@ import { MdDashboard } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
 import { FaMoneyBillWave } from "react-icons/fa";
+import { HiUsers } from "react-icons/hi2";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
 
 
     const menuItems = [
         { name: 'Dashboard', icon: <MdDashboard />, path: '/dashboard' },
+        { name: 'Users', icon: <HiUsers />, path: '/users' , add_path: '/createUser'},
         { name: 'Expenses', icon: <FaMoneyBillWave />, path: '/expenses', add_path: '/createE', edit_path: '/editE/' },
         { name: 'Logout', icon: <MdLogout />, path: '/logout' },
     ];
