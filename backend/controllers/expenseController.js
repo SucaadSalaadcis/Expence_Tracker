@@ -112,5 +112,51 @@ const deleteExpence = async (req, res) => {
 };
 
 
+// Get monthly expense report
+const monthlyExpenseReport = async (req, res) => {
+    try {
+        const allExpenses = await expenceModel.find();
 
-export const expenceController = { allExpences, getById, createExpence, updateExpence, deleteExpence };
+        // The keys will be strings like "January 2024" and the values will be totals and counts for that month.
+        const grouped = {};
+
+        allExpenses.forEach(exp => {
+            // Converts the string date from the database into a real JavaScript Date object so we can extract month/year from it.
+            const date = new Date(exp.date);
+            // "January 2024"
+            const key = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+            if (!grouped[key]) {
+                // totalAmount = 0 → for adding amounts.
+                // count = 0 → to count how many expenses happened in this month.
+                grouped[key] = { totalAmount: 0, count: 0 };
+            }
+
+            grouped[key].totalAmount += exp.amount;
+            grouped[key].count += 1;
+        });
+
+        const result = Object.entries(grouped).map(([month, data]) => ({
+            month,
+            totalAmount: data.totalAmount,
+            count: data.count
+        }));
+
+        /* It loops over all expenses.
+        
+        Groups them by "Month Year".
+        
+        Sums their amounts.
+        
+        Counts how many entries per month.
+        
+        Returns a clean array of reports. */
+
+        res.status(200).send({ data: result });
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+};
+
+
+export const expenceController = { allExpences, getById, createExpence, updateExpence, deleteExpence, monthlyExpenseReport };
