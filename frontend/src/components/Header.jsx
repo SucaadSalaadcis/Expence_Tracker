@@ -1,8 +1,4 @@
 import React from 'react'
-import { FaMapMarkerAlt, FaUser } from 'react-icons/fa'
-import { MdDashboard, MdLogout } from 'react-icons/md'
-import { NavLink } from 'react-router-dom'
-import { FaMoneyBillWave } from 'react-icons/fa'
 
 export default function Header({ toggleSidebar }) {
   return (
@@ -11,7 +7,7 @@ export default function Header({ toggleSidebar }) {
       <button className="text-xl text-black" onClick={toggleSidebar}>
         ☰
       </button>
-      <span className="text-lg font-bold text-[#155DFC]">Expense Tracker</span>
+      <span className="text-lg mr-5 font-bold text-[#155DFC]">Expense Tracker</span>
     </header>
   )
 }

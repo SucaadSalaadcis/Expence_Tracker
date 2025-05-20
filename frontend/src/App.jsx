@@ -11,6 +11,9 @@ import Dashbord from './components/Dashboard'
 import NotFound from './pages/NotFound'
 import Logout from './pages/Auth/Logout'
 import ExpenceList from './pages/expences/ExpenceList'
+import CreateExp from './pages/expences/CreateExp'
+import EditExp from './pages/expences/EditExp'
+import { matchPath } from 'react-router-dom';
 
 export default function App() {
   const location = useLocation()
@@ -18,26 +21,25 @@ export default function App() {
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
-  // Define routes where layout sidebar & header should be hidden
-  const noLayoutRoutes = ['/', '/login', '/register', '/logout']
+  const noLayoutRoutes = ['/', '/login', '/register', '/logout'];
   const knownRoutes = [
     '/',
     '/login',
     '/register',
     '/dashboard',
     '/expenses',
-    '/createEx',
+    '/createE',
+    '/editE/:id',
     '/logout'
-  ]
+  ];
 
-  // Hide layout on auth pages and unknown (404) paths
   const hideLayout =
     noLayoutRoutes.includes(location.pathname) ||
-    !knownRoutes.includes(location.pathname)
+    !knownRoutes.some(route => matchPath(route, location.pathname));
 
   return (
     <>
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex h-screen overflow-auto">
         {/* Sidebar */}
         {!hideLayout && (
           <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
@@ -49,13 +51,15 @@ export default function App() {
           {!hideLayout && <Header toggleSidebar={toggleSidebar} />}
 
           {/* Page content */}
-          <main className="flex-1 p-6 overflow-y-auto bg-gray-100">
+          <main className="flex-1 p-6 overflow-auto bg-gray-100">
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={<Dashbord />} />
               <Route path="/expenses" element={<ExpenceList />} />
+              <Route path="/createE" element={<CreateExp />} />
+              <Route path='/editE/:id' element={<EditExp />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
