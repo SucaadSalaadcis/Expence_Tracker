@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MonthlyExpenseTable from '../pages/expences/MonthlyExpenseTable ';
 import MonthlyExpenseChart from '../pages/expences/MonthlyExpenseReport';
+import Totals from './Totals';
 
 const Dashboard = () => {
   const [reportData, setReportData] = useState([]);
@@ -14,6 +15,7 @@ const Dashboard = () => {
 
   return (
     <div className="p-4">
+      <Totals />
       <MonthlyExpenseTable data={reportData} />
       <MonthlyExpenseChart data={reportData} />
     </div>
